@@ -20,33 +20,27 @@
 
 class ST7735S
 {
-public:
+public:    
   void begin(unsigned char cs, unsigned char dc);
-  void bgFill(unsigned short color);
+  void setRotation(unsigned int rotation);
   void end(void);
+  
+  /* -------
+   * Graphic
+   * ------- */
+  void pixel(unsigned char x, unsigned char y, unsigned short color);
+  void bg(unsigned short color);
+  void rectangle(unsigned char x,
+		 unsigned char y,
+		 unsigned char width,
+		 unsigned char height,
+		 unsigned short color);
 
 private:
   SPI spi;
-  typedef enum
-  {
-    NOP     = 0x00U,
-    SWRESET = 0x01U,
-    SLPIN   = 0x10U,
-    SLPOUT  = 0x11U,
-    GAMSET  = 0x26U,
-    DISPOFF = 0x28U,
-    DISPON  = 0x29U,
-    MADCTL  = 0x36U,
-    COLMOD  = 0x3AU,
-    CASET   = 0x2AU,
-    RASET   = 0x2BU,
-    RAMWR   = 0x2CU,
-    IDMOFF  = 0x38U,
-    IDMON   = 0x39U
-  } st7735s_t;
   unsigned char chip_select = 0U;
   unsigned char data_command = 0U;
-  
+
   void sendData(unsigned char data);
   void sendCommand(unsigned char command);
   void setAddressWindow(unsigned char x,
