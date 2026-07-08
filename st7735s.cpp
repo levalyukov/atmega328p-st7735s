@@ -21,7 +21,10 @@ typedef enum
     IDMOFF = 0x38U,
     IDMON = 0x39U,
     PTLON = 0x12U,
-    NORON = 0x13U
+    NORON = 0x13U,
+    RGBSET = 0x2DU,
+    INVOFF = 0x20U,
+    INVON = 0x21U
 } ST7735S_COMMANDS;
 
 void ST7735S::begin(const unsigned char cs, const unsigned char dc)
@@ -38,9 +41,9 @@ void ST7735S::begin(const unsigned char cs, const unsigned char dc)
     spi.init();
     PORTB &= ~(1U << chip_select);
     sendCommand(SWRESET);
+    sendCommand(INVOFF);
     sendCommand(GAMSET);
-    sendCommand(COLMOD);
-    sendData(0x03);
+    sendData(0x08);
 
     sendCommand(CASET);
     sendData(0x00);
@@ -57,10 +60,10 @@ void ST7735S::begin(const unsigned char cs, const unsigned char dc)
     sendCommand(IDMOFF);
     sendCommand(SLPOUT);
     sendCommand(PTLON);
+    sendCommand(COLMOD);
+    sendData(0x03);
     sendCommand(DISPON);
     PORTB |= (1U << chip_select);
-
-    setRotation(0);
 }
 
 void ST7735S::setRotation(const unsigned int rotation)
@@ -95,7 +98,8 @@ void ST7735S::pixel(const unsigned char x, const unsigned char y,
 {
     setAddressWindow(x, y, 1, 1);
     PORTB &= ~(1U << chip_select);
-    sendData(color);
+    sendData(color >> 8);
+    sendData(color & 0xFF);
     PORTB |= (1U << chip_select);
 }
 
@@ -144,9 +148,9 @@ void ST7735S::setAddressWindow(const unsigned char x,
     PORTB &= ~(1U << chip_select);
     sendCommand(CASET);
     sendData(0x00);
-    sendData(x);
+    sendData(x + ST7735S_OFFSET);
     sendData(0x00);
-    sendData(height);
+    sendData(width);
 
     sendCommand(RASET);
     sendData(0x00);
@@ -154,6 +158,7 @@ void ST7735S::setAddressWindow(const unsigned char x,
     sendData(0x00);
     sendData(width);
 
+    sendData(height);
     sendCommand(RAMWR);
     PORTB |= (1U << chip_select);
 }

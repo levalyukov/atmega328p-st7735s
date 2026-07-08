@@ -6,8 +6,9 @@
 #  include <util/delay.h>
 #  include "spi.hpp"
 
-#  define ST7735S_HEIGHT 160
-#  define ST7735S_WIDTH  80
+#  define ST7735S_OFFSET 26
+#  define ST7735S_HEIGHT 160+ST7735S_OFFSET
+#  define ST7735S_WIDTH  80+ST7735S_OFFSET
 #  define ST7735S_BLACK  0x0000
 #  define ST7735S_WHITE  0xFFFF
 #  define ST7735S_RED    0xF800
