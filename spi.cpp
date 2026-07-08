@@ -4,6 +4,7 @@ void SPI::init(void)
 {
     DDRB |= ((1U << SCLK) | (1U << MOSI));
     DDRB &= ~(1U << MISO);
+    SPCR &= ~((1U << CPOL) | (1U << CPHA));
     SPCR |= ((1U << SPE) | (1U << MSTR) | (1U << SPR0));
 }
 
