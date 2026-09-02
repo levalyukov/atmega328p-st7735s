@@ -13,6 +13,3 @@
 - avrdude - Утилита для прошивки ATmega328P
 - Makefile - Сборка, компиляция
 - clang-format - Форматирование кода
-
-Даташит на контроллер ST7735S:
-www.alldatasheet.com/datasheet-pdf/pdf/1775164/SITRONIX/ST7735S.html
