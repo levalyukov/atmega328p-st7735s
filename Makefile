@@ -2,7 +2,7 @@ uploader	:= avrdude
 device		:= atmega328p
 bootloader	:= arduino
 baudrate	:= 115200
-port		:= /dev/tty.usbserial-140 # <- Обязательно измените порт / Changing the port is required
+port		:= /dev/tty.usbserial-140
 clock		:= 1000000UL
 
 library		:= st7735s.hpp
