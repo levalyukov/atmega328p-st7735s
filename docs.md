@@ -4,6 +4,48 @@
 
 Для работы был использован [официальный даташит от производителя.](www.alldatasheet.com/datasheet-pdf/pdf/1775164/SITRONIX/ST7735S.html)
 
+## Сборка и компиляция
+
+Проект был написан под чистый AVR и на unix-подобной ОС, поэтому здесь используется Makefile. Чуть позже я добавлю раздел как подключить библиотеку к Arduino. Для компиляции вам необходимо иметь Makefile на своем компьютере.
+
+### Основные цели Makefile
+
+**Компиляция, сборка, конвертирование в ihex формат и прошивка МК:**
+
+```bash
+make
+```
+
+**Сборка .cpp файлов проекта:**
+
+```bash
+make build
+```
+
+**Только прошивка МК готового ihx-файла:**
+
+```bash
+make flash
+```
+
+**Проверка на синтаксические ошибки:**
+
+```bash
+make syntax
+```
+
+**Форматирование кода:**
+
+```bash
+make format
+```
+
+**Очистить временные и объектные файлы:**
+
+```bash
+make clean
+```
+
 ## Методы SPI модуля
 
 Инициализация SPI-интерфейса:
@@ -35,13 +77,13 @@ void SPI::deinit(void);
 Инициализировать дисплей:
 
 ```cpp
-  void begin(unsigned char cs, unsigned char dc);
+void begin(unsigned char cs, unsigned char dc);
 ```
 
 Установить расположение дисплея:
 
 ```cpp
-  void setRotation(unsigned int rotation);
+void setRotation(unsigned int rotation);
 ```
 
 Отключить дисплей:
