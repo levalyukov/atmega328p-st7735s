@@ -2,11 +2,12 @@ uploader	:= avrdude
 device		:= atmega328p
 bootloader	:= arduino
 baudrate	:= 115200
-port		:= /dev/tty.usbserial-140
+port		:= /dev/tty.usbserial-140 # <- Обязательно измените порт / Changing the port is required
 clock		:= 1000000UL
 
+library		:= st7735s.hpp
 compilier	:= avr-gcc
-flags		:= -mmcu=${device} -pedantic -Wall -D F_CPU=${clock} -Os
+flags		:= -mmcu=${device} -std=c++17 -pedantic -Wall -D F_CPU=${clock} -Os -I ${library}
 output		:= firmware
 sources		:= ${wildcard *.cpp}
 objects		:= ${sources:.cpp=.o}
@@ -33,7 +34,7 @@ syntax : ${sources}
 	${compilier} ${flags} -fsyntax-only $^ 
 
 format : ${sources}
-	for file in ${sources}; do		\
+	for file in ${sources}; do	\
 		clang-format -i $$file; \
 	done
 
